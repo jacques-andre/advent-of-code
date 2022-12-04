@@ -9,6 +9,12 @@ def list_contains(list1, list2) -> bool:
         return True
     return False
 
+def list_overlaps(list1, list2) -> bool:
+    set1 = set(list1)
+    set2 = set(list2)
+    if not set1.isdisjoint(set2) or not set2.isdisjoint(set1):
+        return True
+    return False
 
 def part_1() -> int:
     total = 0
@@ -24,7 +30,22 @@ def part_1() -> int:
 
     return total
 
+def part_2() -> int:
+    total = 0
+    with open("input.txt") as file:
+        for line in file:
+            pairs = line.strip().split(",")
+
+            first_pair = expand_pair(pairs[0].split("-"))
+            seccond_pair = expand_pair(pairs[1].split("-"))
+
+            if list_overlaps(first_pair, seccond_pair):
+                total += 1
+
+    return total
 
 if __name__ == "__main__":
     part_1_ans = part_1()
     print(f"part_1_ans: {part_1_ans}")
+    part_2_ans = part_2()
+    print(f"part_2_ans: {part_2_ans}")
